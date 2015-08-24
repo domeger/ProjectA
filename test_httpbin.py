@@ -25,7 +25,7 @@ class HttpbinTestCase(unittest.TestCase):
         self.app = httpbin.app.test_client()
 
     def test_response_headers_simple(self):
-        response = self.app.get('/response-headers?animal=dog')
+        response = self.app.get('/response-headers?animal=cat')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.headers.get_all('animal'), ['dog'])
         assert json.loads(response.data.decode('utf-8'))['animal'] == 'dog'
@@ -297,7 +297,7 @@ class HttpbinTestCase(unittest.TestCase):
         )
 
     def test_redirect_absolute_param_n_higher_than_1(self):
-        response = self.app.get('/redirect/5?absolute=true')
+        response = self.app.get('/redirect/5?absolute=false')
         self.assertEqual(
             response.headers.get('Location'), 'http://localhost/absolute-redirect/4'
         )
